@@ -1,0 +1,367 @@
+Instalar:
+
+"npm install jsdom --save-dev"
+
+"npm install --save-dev mocha chai"
+
+Ejecutar tests (test/test.js):
+
+"npm test"
+
+Códigos (30-09-24 | 0:08 a.m.)
+
+index.html:
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Promedio - Calculadora de Notas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/custom.min.css">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">Mi Promedio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Inicio</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center mb-4">Calculadora de Promedio</h2>
+        
+        <div class="table-responsive">
+            <table class="table table-hover" id="tablaNotas">
+                <thead>
+                    <tr>
+                        <th>Nota</th>
+                        <th>Calificación</th>
+                        <th>Porcentaje</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="notaa1">
+                        <td class="nota">Nota 1</td>
+                        <td><input type="text" id="nota1" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje1" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa2">
+                        <td class="nota">Nota 2</td>
+                        <td><input type="text" id="nota2" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje2" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa3">
+                        <td class="nota">Nota 3</td>
+                        <td><input type="text" id="nota3" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje3" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa4">
+                        <td class="nota">Nota 4</td>
+                        <td><input type="text" id="nota4" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje4" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa5" style="display:none">
+                        <td class="nota">Nota 5</td>
+                        <td><input type="text" id="nota5" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje5" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa6" style="display:none">
+                        <td class="nota">Nota 6</td>
+                        <td><input type="text" id="nota6" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje6" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa7" style="display:none">
+                        <td class="nota">Nota 7</td>
+                        <td><input type="text" id="nota7" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje7" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa8" style="display:none">
+                        <td class="nota">Nota 8</td>
+                        <td><input type="text" id="nota8" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje8" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa9" style="display:none">
+                        <td class="nota">Nota 9</td>
+                        <td><input type="text" id="nota9" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje9" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr id="notaa10" style="display:none">
+                        <td class="nota">Nota 10</td>
+                        <td><input type="text" id="nota10" class="form-control" onkeyup="promedio();" value="0"></td>
+                        <td><input type="text" id="porcentaje10" class="form-control" onkeyup="promedio(); validar();" value="0"></td>
+                        <td>%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="text-center mt-3">
+            <button id="boton1" class="btn btn-primary" onclick="boton1()">
+                <i class="fas fa-plus"></i> Agregar Nota
+            </button>
+            <button id="boton2" class="btn btn-primary" onclick="boton2()" style="display:none">
+                <i class="fas fa-plus"></i> Agregar Nota
+            </button>
+            <button id="boton3" class="btn btn-primary" onclick="boton3()" style="display:none">
+                <i class="fas fa-plus"></i> Agregar Nota
+            </button>
+            <button id="boton4" class="btn btn-primary" onclick="boton4()" style="display:none">
+                <i class="fas fa-plus"></i> Agregar Nota
+            </button>
+            <button id="boton5" class="btn btn-primary" onclick="boton5()" style="display:none">
+                <i class="fas fa-plus"></i> Agregar Nota
+            </button>
+            <button id="boton6" class="btn btn-primary" onclick="boton6()" style="display:none">
+                <i class="fas fa-plus"></i> Agregar Nota
+            </button>
+        </div>
+
+        <div id="promedioControles" class="mt-4" style="display:none">
+            <h4 class="text-center">Notas Parciales</h4>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <input type="text" id="promedioControl" class="form-control" placeholder="Promedio de controles" onkeyup="promedio();">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="pControl" class="form-control" placeholder="Porcentaje" onkeyup="promedio(); validar();">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button id="botonControl1" class="btn btn-success" onclick="botonControl1()">
+                Agregar Notas Parciales
+            </button>
+        </div>
+
+        <div id="notaExamen" class="mt-4" style="display:none">
+            <h4 class="text-center">Examen Final</h4>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <input type="text" id="nExamen" class="form-control" placeholder="Nota del examen" onkeyup="promedio();">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="pExamen" class="form-control" placeholder="Porcentaje del examen" onkeyup="promedio();">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button id="darExamen" class="btn btn-danger" onclick="darExamen()">
+                Agregar Examen Final
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <label>Promedio Actual:</label>
+                    <input type="text" id="total" readonly class="form-control d-inline-block" style="width: 100px;">
+                </div>
+                <div class="col-md-4 text-center">
+                    <label>Promedio Final:</label>
+                    <input type="text" id="pFinal" readonly class="form-control d-inline-block" style="width: 100px;">
+                </div>
+                <div class="col-md-4 text-center">
+                    <label>Nota necesaria para aprobar:</label>
+                    <input type="text" id="notaQueNecesito" readonly class="form-control d-inline-block" style="width: 100px;">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/botones.js" type="text/javascript"></script>
+    <script src="js/promedio.js" type="text/javascript"></script>
+    <script src="js/validar.js" type="text/javascript"></script>
+</body>
+</html>
+
+js/botones.js:
+function boton1(){
+    document.getElementById('notaa5').style.display = 'table-row';
+    document.getElementById('boton1').style.display = 'none';
+    document.getElementById('boton2').style.display = 'table-row';
+  }
+  function boton2(){
+    document.getElementById('notaa6').style.display = 'table-row';
+    document.getElementById('boton2').style.display = 'none';
+    document.getElementById('boton3').style.display = 'table-row';
+  }
+  function boton3(){
+    document.getElementById('notaa7').style.display = 'table-row';
+    document.getElementById('boton3').style.display = 'none';
+    document.getElementById('boton4').style.display = 'table-row';
+  }
+  function boton4(){
+    document.getElementById('notaa8').style.display = 'table-row';
+    document.getElementById('boton4').style.display = 'none';
+    document.getElementById('boton5').style.display = 'table-row';
+  }
+  function boton5(){
+    document.getElementById('notaa9').style.display = 'table-row';
+    document.getElementById('boton5').style.display = 'none';
+    document.getElementById('boton6').style.display = 'table-row';
+  }
+  function boton6(){
+    document.getElementById('notaa10').style.display = 'table-row';
+    document.getElementById('boton6').style.display = 'none';
+  }
+  
+  function botonControl1(){
+    document.getElementById('promedioControles').style.display = 'table-row';
+    document.getElementById('botonControl1').style.display = 'none';
+  }
+  
+  function darExamen(){
+    document.getElementById('notaExamen').style.display = 'table-row';
+    document.getElementById('darExamen').style.display = 'none';
+    document.getElementById('notaNecesito').style.display = 'table-row';
+  }
+
+js/promedio.js:
+
+function promedio() {
+  var porcentaje1 = verificar("porcentaje1");
+  var porcentaje2 = verificar("porcentaje2");
+  var porcentaje3 = verificar("porcentaje3");
+  var porcentaje4 = verificar("porcentaje4");
+  var porcentaje5 = verificar("porcentaje5");
+  var porcentaje6 = verificar("porcentaje6");
+  var porcentaje7 = verificar("porcentaje7");
+  var porcentaje8 = verificar("porcentaje8");
+  var porcentaje9 = verificar("porcentaje9");
+  var porcentaje10 = verificar("porcentaje10");
+  var pControl = verificar("pControl");
+
+  var nota1 = verificar("nota1");
+  var nota2 = verificar("nota2");
+  var nota3 = verificar("nota3");
+  var nota4 = verificar("nota4");
+  var nota5 = verificar("nota5");
+  var nota6 = verificar("nota6");
+  var nota7 = verificar("nota7");
+  var nota8 = verificar("nota8");
+  var nota9 = verificar("nota9");
+  var nota10 = verificar("nota10");
+  var promedioControl = verificar("promedioControl");
+
+  var promedio = (document.getElementById("total").value =
+    parseInt(nota1) * (parseInt(porcentaje1) / 100) +
+    parseInt(nota2) * (parseInt(porcentaje2) / 100) +
+    parseInt(nota3) * (parseInt(porcentaje3) / 100) +
+    parseInt(nota4) * (parseInt(porcentaje4) / 100) +
+    parseInt(nota5) * (parseInt(porcentaje5) / 100) +
+    parseInt(nota6) * (parseInt(porcentaje6) / 100) +
+    parseInt(nota7) * (parseInt(porcentaje7) / 100) +
+    parseInt(nota8) * (parseInt(porcentaje8) / 100) +
+    parseInt(nota9) * (parseInt(porcentaje9) / 100) +
+    parseInt(nota10) * (parseInt(porcentaje10) / 100) +
+    parseInt(promedioControl) * (parseInt(pControl) / 100));
+
+  var nExamen = verificar("nExamen");
+  var pExamen = verificar("pExamen");
+
+  var notaUno = (promedio * (100 - parseInt(pExamen))) / 100;
+
+  document.getElementById("pFinal").value =
+    (parseInt(nExamen) * parseInt(pExamen)) / 100 + notaUno;
+
+  var pPresenta = (100 - parseInt(pExamen)) / 100;
+  var pExamenListo = parseInt(pExamen) / 100;
+  var parte1 = 40 - parseInt(pPresenta) * parseInt(promedio);
+
+  document.getElementById("notaQueNecesito").value =
+    (40 - pPresenta * promedio) / pExamenListo;
+}
+
+
+js/validar.js:
+
+function validar() {
+  var p1 = verificar("porcentaje1");
+  var p2 = verificar("porcentaje2");
+  var p3 = verificar("porcentaje3");
+  var p4 = verificar("porcentaje4");
+  var p5 = verificar("porcentaje5");
+  var p6 = verificar("porcentaje6");
+  var p7 = verificar("porcentaje7");
+  var p8 = verificar("porcentaje8");
+  var p9 = verificar("porcentaje9");
+  var p10 = verificar("porcentaje10");
+  var pC = verificar("pControl");
+
+  document.getElementById("totalPorcentajes").value =
+    parseInt(p1) +
+    parseInt(p2) +
+    parseInt(p3) +
+    parseInt(p4) +
+    parseInt(p5) +
+    parseInt(p6) +
+    parseInt(p7) +
+    parseInt(p8) +
+    parseInt(p9) +
+    parseInt(p10) +
+    parseInt(pC);
+
+  var totalPorcentajes = document.getElementById("totalPorcentajes");
+
+  if (totalPorcentajes.value > 100) {
+    alert("Has sobrepasado el 100%");
+    obj.style.borderColor = "#808080";
+    return value;
+  } else {
+  }
+}
+
+function verificar(id) {
+  var obj = document.getElementById(id);
+  if (obj.value == "") value = "0";
+  else value = obj.value;
+  if (validate_importe(value)) {
+    obj.style.borderColor = "#808080";
+    return value;
+  } else {
+    obj.style.borderColor = "#f00";
+    return 0;
+  }
+}
+
+function validate_importe(value, decimal) {
+  if (decimal == undefined) decimal = 0;
+
+  if (decimal == 1) {
+    var patron = new RegExp("^[0-9]+((,|.)[0-9]{1,2})?$");
+  } else {
+    var patron = new RegExp("^([0-9])*$");
+  }
+
+  if (value && value.search(patron) == 0) {
+    return true;
+  }
+  return false;
+}
