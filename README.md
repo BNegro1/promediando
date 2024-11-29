@@ -1,3 +1,2 @@
-# Promedio
+# Promediando (Sitio obsoleto)
 
-Sitio realizado para proyecto semestral 2024-02
