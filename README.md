@@ -1,2 +1,1 @@
-# Promediando (Sitio obsoleto)
 
